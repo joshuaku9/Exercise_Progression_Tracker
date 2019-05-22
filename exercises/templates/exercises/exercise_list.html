@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <title>Exercise Progression Tracker</title>
+  </head>
+  <body>
+    <div class="container">
+        <h1>Exercise List</h1>
+        <ul>
+          {% for exercise in object_list %}
+          <li><p>Exercise ID: <a href="{% url "exercises:exercise_update" exercise.id %}">{{ exercise.id }}</a></p>
+          <p>Name: {{ exercise.name }}</p>
+            <a href="{% url "exercises:exercise_delete" exercise.id %}">Delete</a>
+          </li>
+          {% endfor %}
+        </ul>
+
+        <a href="{% url "exercises:exercise_create" %}">Add Exercise</a>
+    </div>
+  </body>
+</html>
