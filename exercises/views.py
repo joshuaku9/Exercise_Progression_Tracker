@@ -9,7 +9,7 @@ from .models import Exercises
 class ExerciseForm(ModelForm):
     class Meta:
         model = Exercises
-        fields = ['name', 'weight']
+        fields = ['name', 'weight', 'sets', 'reps']
 
 def exercise_list(request, template_name='exercises/exercise_list.html'):
     exercises = Exercises.objects.all()

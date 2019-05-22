@@ -13,16 +13,20 @@
                 <tr>
                     <th scope="col">Exercise</th>
                     <th scope="col">Weight</th>
-                    <th scope="col">Set</th>
+                    <th scope="col">Sets</th>
                     <th scope="col">Reps</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
           {% for exercise in object_list %}
             <tr>
-                <td scope="row"><a class = "text-dark" href="{% url 'exercises:exercise_update' exercise.id %}">{{ exercise.name }}</a></td>
+                <td scope="row">{{ exercise.name }}</td>
+                <td>{{ exercise.weight }}</td>
+                <td>{{ exercise.sets }}</td>
+                <td>{{ exercise.reps }}</td>
+                <td><a class = "text-dark" href="{% url 'exercises:exercise_update' exercise.id %}">Edit</a></td>
                 <td><a class = "text-dark" href="{% url 'exercises:exercise_delete' exercise.id %}">Delete</a></td>
-                <td></td>
             </tr>
           {% endfor %}
         </table>

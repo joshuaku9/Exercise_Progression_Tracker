@@ -9,7 +9,7 @@
     <div class="container">
       <form method="post">
         {% csrf_token %}
-        Are you sure you want to delete "{{ object }}" ?
+        <p>Are you sure you want to delete "{{ object }}" ?</p>
         <input class="btn btn-primary" type="submit" value="Submit" />
       </form>
     </div>
