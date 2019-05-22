@@ -8,16 +8,25 @@
   <body>
     <div class="container">
         <h1>Exercise List</h1>
-        <ul>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Exercise</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Set</th>
+                    <th scope="col">Reps</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
           {% for exercise in object_list %}
-          <li><p>Exercise ID: <a href="{% url "exercises:exercise_update" exercise.id %}">{{ exercise.id }}</a></p>
-          <p>Name: {{ exercise.name }}</p>
-            <a href="{% url "exercises:exercise_delete" exercise.id %}">Delete</a>
-          </li>
+            <tr>
+                <td scope="row"><a class = "text-dark" href="{% url 'exercises:exercise_update' exercise.id %}">{{ exercise.name }}</a></td>
+                <td><a class = "text-dark" href="{% url 'exercises:exercise_delete' exercise.id %}">Delete</a></td>
+                <td></td>
+            </tr>
           {% endfor %}
-        </ul>
-
-        <a href="{% url "exercises:exercise_create" %}">Add Exercise</a>
+        </table>
+        <a href="{% url 'exercises:exercise_create' %}">Add Exercise</a>
     </div>
   </body>
 </html>

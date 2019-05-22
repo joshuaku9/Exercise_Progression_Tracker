@@ -9,7 +9,7 @@ from .models import Exercises
 class ExerciseForm(ModelForm):
     class Meta:
         model = Exercises
-        fields = ['id', 'name']
+        fields = ['name', 'weight']
 
 def exercise_list(request, template_name='exercises/exercise_list.html'):
     exercises = Exercises.objects.all()
@@ -18,23 +18,29 @@ def exercise_list(request, template_name='exercises/exercise_list.html'):
     return render(request, template_name, data)
 
 def exercise_create(request, template_name='exercises/exercise_form.html'):
-    form = ExerciseForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('exercises:exercise_list')
+    if request.method == "POST":  
+        form = ExerciseForm(request.POST)  
+        if form.is_valid():  
+            try:  
+                form.save()  
+                return redirect('exercises:exercise_list')  
+            except:  
+                pass  
+    else:  
+        form = ExerciseForm()  
     return render(request, template_name, {'form': form})
 
 def exercise_update(request, pk, template_name='exercises/exercise_form.html'):
-    exercise = get_object_or_404(blog_posts, pk=pk)
-    form = PostsForm(request.POST or None, instance=post)
+    exercise = get_object_or_404(Exercises, pk=pk)
+    form = ExerciseForm(request.POST or None, instance=exercise)
     if form.is_valid():
         form.save()
-        return redirect('exercises:exercises_list')
+        return redirect('exercises:exercise_list')
     return render(request, template_name, {'form': form})
 
 def exercise_delete(request, pk, template_name='exercises/exercise_delete.html'):
-    exercise = get_object_or_404(blog_posts, pk=pk)
+    exercise = get_object_or_404(Exercises, pk=pk)
     if request.method=='POST':
-        post.delete()
+        exercise.delete()
         return redirect('exercises:exercise_list')
-    return render(request, template_name, {'object': post})
+    return render(request, template_name, {'object': exercise})
