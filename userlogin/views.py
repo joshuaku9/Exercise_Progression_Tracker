@@ -26,7 +26,7 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            registerd = True
+            registered = True
             # return redirect('userlogin:index')
         else:
             print(user_form.errors)
@@ -43,7 +43,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request,user)
-                return HttpResponseRedirect(reverse('userlogin:index'))
+                return redirect('userlogin:exercise_list')
             else:
                 return HttpResponse("Your account was inactive.")
         else:

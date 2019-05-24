@@ -14,7 +14,6 @@
           <li><a class="navbar-brand" href="{% url 'userlogin:index' %}">DJANGO</a></li>
           <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>
           <li><a class="navbar-link" href="{% url 'userlogin:register' %}">Register</a></li>     
-          {# Some logic on what to display for last item#}
           {% if user.is_authenticated %}
             <li><a href="{% url 'userlogin:logout' %}">Logout</a></li>
           {% else %}
