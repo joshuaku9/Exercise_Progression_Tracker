@@ -1,36 +1,29 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-    <title>Exercise Progression Tracker</title>
-  </head>
-  <body>
-    <div class="container">
-        <h1>Exercise List</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Exercise</th>
-                    <th scope="col">Weight</th>
-                    <th scope="col">Sets</th>
-                    <th scope="col">Reps</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-          {% for exercise in object_list %}
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <table class="table">
+        <thead>
             <tr>
-                <td scope="row">{{ exercise.name }}</td>
-                <td>{{ exercise.weight }}</td>
-                <td>{{ exercise.sets }}</td>
-                <td>{{ exercise.reps }}</td>
-                <td><a class = "text-dark" href="{% url 'exercises:exercise_update' exercise.id %}">Edit</a></td>
-                <td><a class = "text-dark" href="{% url 'exercises:exercise_delete' exercise.id %}">Delete</a></td>
+                <th scope="col">Exercise</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Sets</th>
+                <th scope="col">Reps</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
-          {% endfor %}
-        </table>
-        <a href="{% url 'exercises:exercise_create' %}">Add Exercise</a>
-    </div>
-  </body>
-</html>
+        </thead>
+      {% for exercise in object_list %}
+        <tr>
+            <td scope="row">{{ exercise.name }}</td>
+            <td>{{ exercise.weight }}</td>
+            <td>{{ exercise.sets }}</td>
+            <td>{{ exercise.reps }}</td>
+            <td><a class = "text-dark" href="{% url 'exercises:exercise_update' exercise.id %}">Edit</a></td>
+            <td><a class = "text-dark" href="{% url 'exercises:exercise_delete' exercise.id %}">Delete</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+    <a href="{% url 'exercises:exercise_create' %}">Add Exercise</a>
+</div>
+{% endblock %}
