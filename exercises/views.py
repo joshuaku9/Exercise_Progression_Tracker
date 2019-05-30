@@ -19,11 +19,8 @@ def exercise_create(request, template_name='exercises/exercise_form.html'):
     if request.method == "POST":  
         form = ExerciseForm(request.POST)  
         if form.is_valid():  
-            try:  
-                form.save()  
-                return redirect('exercises:exercise_list')  
-            except:  
-                pass  
+            form.save()  
+            return redirect('exercises:exercise_list')   
     else:  
         form = ExerciseForm()  
     return render(request, template_name, {'form': form})
