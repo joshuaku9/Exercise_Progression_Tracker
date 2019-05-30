@@ -1,16 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views import generic
-from django.forms import ModelForm
+from django.contrib.auth.decorators import login_required
 
 from .models import Exercises
+from .forms import ExerciseForm
 
 # Create your views here.
-class ExerciseForm(ModelForm):
-    class Meta:
-        model = Exercises
-        fields = ['name', 'weight', 'sets', 'reps']
 
+@login_required(login_url="/accounts/login/")
 def exercise_list(request, template_name='exercises/exercise_list.html'):
     exercises = Exercises.objects.all()
     data = {}
