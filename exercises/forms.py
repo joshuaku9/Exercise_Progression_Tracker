@@ -7,4 +7,4 @@ from .models import Exercises
 class ExerciseForm(ModelForm):
     class Meta:
         model = Exercises
-        fields = ['name', 'weight', 'sets', 'reps']
+        fields = ['name', 'weight', 'sets', 'reps', 'user']

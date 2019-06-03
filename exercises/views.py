@@ -10,7 +10,7 @@ from .forms import ExerciseForm
 
 @login_required(login_url="/accounts/login/")
 def exercise_list(request, template_name='exercises/exercise_list.html'):
-    exercises = Exercises.objects.all()
+    exercises = Exercises.objects.filter(user=request.user)
     data = {}
     data['object_list'] = exercises
     return render(request, template_name, data)
@@ -20,7 +20,9 @@ def exercise_create(request, template_name='exercises/exercise_form.html'):
         form = ExerciseForm(request.POST)  
         if form.is_valid():  
             form.save()  
-            return redirect('exercises:exercise_list')   
+            return redirect('exercises:exercise_list')  
+        else:
+            print('Form not valid')
     else:  
         form = ExerciseForm()  
     return render(request, template_name, {'form': form})
