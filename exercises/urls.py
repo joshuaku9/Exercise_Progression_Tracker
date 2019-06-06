@@ -10,4 +10,5 @@ urlpatterns = [
     path('create/', views.exercise_create, name='exercise_create'),
     path('edit/<int:pk>/', views.exercise_update, name='exercise_update'),
     path('delete/<int:pk>/', views.exercise_delete, name='exercise_delete'),
+    path('graph/', views.exercise_graph, name='exercise_graph'),
 ]
