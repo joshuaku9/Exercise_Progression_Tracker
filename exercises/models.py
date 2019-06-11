@@ -7,7 +7,7 @@ class Exercises(models.Model):
     weight = models.IntegerField(default = 5)
     sets = models.IntegerField(default = 1)
     reps = models.IntegerField(default = 1)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete='CASCADE')
     def __str__(self):
         return self.name

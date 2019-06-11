@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
+from datetime import date
 from django.contrib.auth.decorators import login_required
 import matplotlib.pyplot as plt, mpld3
 
@@ -11,7 +12,7 @@ from .forms import ExerciseForm
 
 @login_required(login_url="/accounts/login/")
 def exercise_list(request, template_name='exercises/exercise_list.html'):
-    exercises = Exercises.objects.filter(user=request.user)
+    exercises = Exercises.objects.filter(user=request.user, date_created=date.today())
     data = {}
     data['object_list'] = exercises
     #for i in exercises:
@@ -46,7 +47,7 @@ def exercise_delete(request, pk, template_name='exercises/exercise_delete.html')
     return render(request, template_name, {'object': exercise})
 
 def exercise_graph(request, template_name='exercises/graph.html'):
-    exercises = Exercises.objects.filter(user=request.user)
+    exercises = Exercises.objects.filter(user=request.user, date_created=date.today())
     data = []
     weight=[]
     for i in range(0,len(exercises)):
