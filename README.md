@@ -1,2 +1,2 @@
 # Exercise_Progression_Tracker
-Workout progression application made with Django. Keep track of your exercises, weight, reps, sets and how you are progressing over time. User authenticated log-in system to view your own personalized growth.
+Workout progression application made with Django to keep track of how I am progressing over time with my lifts. User authenticated log-in system.
