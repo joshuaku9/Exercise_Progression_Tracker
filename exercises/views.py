@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from datetime import date
@@ -46,7 +46,7 @@ def exercise_delete(request, pk, template_name='exercises/exercise_delete.html')
         return redirect('exercises:exercise_list')
     return render(request, template_name, {'object': exercise})
 
-def exercise_graph(request, template_name='exercises/graph.html'):
+def exercise_bargraph(request, template_name='exercises/bargraph.html'):
     exercises = Exercises.objects.filter(user=request.user, date_created=date.today())
     data = []
     weight=[]
@@ -63,3 +63,43 @@ def exercise_graph(request, template_name='exercises/graph.html'):
     mpld3.show()
     mpld3.close('all')
     return render(request, template_name)
+
+def exercise_linegraph(request, template_name='exercises/linegraph.html'):
+    ex_sqm = Exercises.objects.filter(user=request.user, name='Squat - Moderate')
+    ex_sqh = Exercises.objects.filter(user=request.user, name='Squat - Heavy')
+    ex_ib = Exercises.objects.filter(user=request.user, name='Incline Bench')
+    ex_dead = Exercises.objects.filter(user=request.user, name='Deadlift')
+
+    w_sqm=[]
+    w_sqh=[]
+    w_ib=[]
+    w_dead=[]
+    t_sqm=[]
+    t_sqh=[]
+    t_ib=[]
+    t_dead=[]
+    for i in range(0,len(ex_sqm)):
+        w_sqm.append(ex_sqm[i].weight)
+        t_sqm.append(ex_sqm[i].date_created)
+    for i in range(0,len(ex_sqh)):
+        w_sqh.append(ex_sqh[i].weight)
+        t_sqh.append(ex_sqh[i].date_created)
+    for i in range(0,len(ex_ib)):
+        w_ib.append(ex_ib[i].weight)
+        t_ib.append(ex_ib[i].date_created)
+    for i in range(0,len(ex_dead)):
+        w_dead.append(ex_dead[i].weight)
+        t_dead.append(ex_dead[i].date_created)
+   
+    fig, ax = plt.subplots()
+    ax.plot(t_sqm,w_sqm, label='Squat - Moderate')
+    ax.plot(t_sqh,w_sqh, label='Squat - Heavy')
+    ax.plot(t_ib,w_ib, label='Incline Bench')
+    ax.plot(t_dead,w_dead, label='Deadlift')
+    ax.set_ylabel('Weight')
+    ax.set_xlabel('Date')
+    ax.legend()  
+    mpld3.show()
+    mpld3.close('all')
+    return render(request, template_name)
+
